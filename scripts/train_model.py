@@ -1,9 +1,8 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split  # Correct import for train_test_split
+from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import joblib  # For saving the trained model
-import os
 
 # Path to the pre-combined dataset
 combined_csv_path = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Project-BME3053C-New\features_dataset.csv"
@@ -11,22 +10,25 @@ combined_csv_path = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Proj
 # Read the pre-combined dataset into a DataFrame
 data = pd.read_csv(combined_csv_path)
 print("Data loaded:")
-print(data.head())
+print(data.head(30))
+print(data.describe())
 
+# Ensure required PSD columns exist
+required_columns = ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma']
+if set(required_columns).issubset(data.columns):
+    # Add a new column to classify dominant wave (based on the maximum PSD value)
+    data['Dominant_Wave'] = data[required_columns].idxmax(axis=1)
 
-
-    # Check if 'Label' column exists and proceed with feature extraction and splitting
-if 'Label' in data.columns:
-    # Features: all columns except 'Label'
-    X = data.drop('Label', axis=1)
+    # Features: PSD values
+    X = data[required_columns]
     
-    # Labels: the 'Label' column
-    y = data['Label']
+    # Labels: Dominant wave type
+    y = data['Dominant_Wave']
     
     # Split the data into training and testing sets (80-20 split)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     
-    # Initialize the model (Random Forest as an example)
+    # Initialize the classification model
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     
     # Train the model on the training data
@@ -42,17 +44,8 @@ if 'Label' in data.columns:
     print(classification_report(y_test, y_pred))
     
     # Save the model for future use
-    model_filename = r"c:\Users\nldad\Documents\Final-Project-BME3053C\random_forest_model.pkl"
+    model_filename = r"c:\Users\nldad\Documents\Final-Project-BME3053C\trained_model.pkl"
     joblib.dump(model, model_filename)
     print(f"Model saved as {model_filename}")
-    
-    # Save the train and test splits for future use
-    X_train.to_csv(r"c:\Users\nldad\Documents\Final-Project-BME3053C\train_features.csv", index=False)
-    X_test.to_csv(r"c:\Users\nldad\Documents\Final-Project-BME3053C\test_features.csv", index=False)
-    y_train.to_csv(r"c:\Users\nldad\Documents\Final-Project-BME3053C\train_labels.csv", index=False)
-    y_test.to_csv(r"c:\Users\nldad\Documents\Final-Project-BME3053C\test_labels.csv", index=False)
-    
-    print("Train-test split completed and saved.")
 else:
-    print("No 'Label' column found. Please check your data for labels.")
-
+    print(f"Required PSD columns {required_columns} not found in the dataset.")

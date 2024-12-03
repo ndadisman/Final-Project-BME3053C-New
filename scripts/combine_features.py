@@ -13,7 +13,7 @@ for file in os.listdir(features_folder):
         
         # Assuming the label is in the filename, e.g., 'class1_data.csv' -> label 'class1'
         label = file.split('_')[0]  # Adjust this based on your filename convention
-        df['Label'] = label  # Add the label as a new column
+        df['Signal'] = label  # Add the label as a new column
         
         dataframes.append(df)
 
