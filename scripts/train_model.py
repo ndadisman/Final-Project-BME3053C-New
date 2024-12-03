@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import joblib  # For saving the trained model
+import numpy as np
 
 # Path to the pre-combined dataset
 combined_csv_path = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Project-BME3053C-New\features_dataset.csv"
@@ -16,14 +17,13 @@ print(data.describe())
 # Ensure required PSD columns exist
 required_columns = ['Delta', 'Theta', 'Alpha', 'Beta', 'Gamma']
 if set(required_columns).issubset(data.columns):
-    # Add a new column to classify dominant wave (based on the maximum PSD value)
-    data['Dominant_Wave'] = data[required_columns].idxmax(axis=1)
-
+    # Apply the function to classify sleep stages for each row
+    
     # Features: PSD values
     X = data[required_columns]
     
-    # Labels: Dominant wave type
-    y = data['Dominant_Wave']
+    # Labels: Sleep stage
+    y = data['Sleep Stage']
     
     # Split the data into training and testing sets (80-20 split)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
