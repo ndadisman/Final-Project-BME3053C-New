@@ -47,7 +47,7 @@ def extract_features(input_dir, output_dir, sf, bands):
 # Define parameters
 input_dir = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Project-BME3053C-New\outputs"
 output_dir = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Project-BME3053C-New\features"
-sampling_frequency = 250  # Update with your data's sampling frequency
+sampling_frequency = 128  # Update with your data's sampling frequency
 frequency_bands = {
     'Delta': (0.5, 4),
     'Theta': (4, 8),
