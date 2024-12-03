@@ -1,6 +1,9 @@
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report
+from sklearn.externals import joblib  # For saving the trained model
 
 # Define the directory containing the feature CSV files
 features_folder = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Project-BME3053C-New\features"
@@ -36,6 +39,26 @@ if dataframes:
         
         # Split the data into training and testing sets (80-20 split)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+        
+        # Initialize the model (Random Forest as an example)
+        model = RandomForestClassifier(n_estimators=100, random_state=42)
+        
+        # Train the model on the training data
+        model.fit(X_train, y_train)
+        
+        # Predict on the test set
+        y_pred = model.predict(X_test)
+        
+        # Evaluate the model
+        accuracy = accuracy_score(y_test, y_pred)
+        print(f"Accuracy: {accuracy * 100:.2f}%")
+        print("Classification Report:")
+        print(classification_report(y_test, y_pred))
+        
+        # Save the model for future use
+        model_filename = r"c:\Users\nldad\Documents\Final-Project-BME3053C\random_forest_model.pkl"
+        joblib.dump(model, model_filename)
+        print(f"Model saved as {model_filename}")
         
         # Save the train and test splits for future use
         X_train.to_csv(r"c:\Users\nldad\Documents\Final-Project-BME3053C\train_features.csv", index=False)
