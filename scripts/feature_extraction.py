@@ -51,11 +51,6 @@ def classify_sleep_stage(band_powers):
         return "Wake"
     elif delta_power > max(theta_power, alpha_power, beta_power, gamma_power):  # Deep Sleep 
         return "Stage 3/4 (Deep Sleep)"
-    elif theta_power > max(delta_power, alpha_power, beta_power, gamma_power):  # Stage 1/2 
-        if alpha_power > max(delta_power, beta_power, gamma_power):  # Theta & Alpha
-            return "Stage 2 (Light Sleep)"
-        else:
-            return "Stage 1 (Light Sleep)"
     elif alpha_power > max(delta_power, beta_power, gamma_power, theta_power):  # Alpha > others
         return "Stage 1 (Light Sleep)"
     elif theta_power > 1E-8:  # REM Sleep 

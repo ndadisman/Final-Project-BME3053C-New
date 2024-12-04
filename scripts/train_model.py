@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 import joblib  # For saving the trained model
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 
 # Path to the pre-combined dataset
 combined_csv_path = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Project-BME3053C-New\features_dataset.csv"
@@ -21,15 +22,17 @@ if set(required_columns).issubset(data.columns):
     
     # Features: PSD values
     X = data[required_columns]
-    
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
+
     # Labels: Sleep stage
     y = data['Sleep Stage']
     
     # Split the data into training and testing sets (80-20 split)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
     
     # Initialize the classification model
-    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model = RandomForestClassifier(n_estimators=150, random_state=42)
     
     # Train the model on the training data
     model.fit(X_train, y_train)
