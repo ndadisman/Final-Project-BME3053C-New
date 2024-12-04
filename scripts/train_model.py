@@ -5,6 +5,9 @@ from sklearn.metrics import accuracy_score, classification_report
 import joblib  # For saving the trained model
 import numpy as np
 from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from sklearn.metrics import accuracy_score
+import seaborn as sns
 
 # Path to the pre-combined dataset
 combined_csv_path = r"c:\Users\nldad\Documents\Final-Project-BME3053C\Final-Project-BME3053C-New\features_dataset.csv"
@@ -52,3 +55,41 @@ if set(required_columns).issubset(data.columns):
     print(f"Model saved as {model_filename}")
 else:
     print(f"Required PSD columns {required_columns} not found in the dataset.")
+
+
+
+# Determine correct and incorrect predictions
+correct_predictions = y_test == y_pred
+incorrect_predictions = ~correct_predictions
+
+# Count correct and incorrect predictions
+correct_count = np.sum(correct_predictions)
+incorrect_count = np.sum(incorrect_predictions)
+
+# Prepare data for the bar chart
+categories = ['Correct', 'Incorrect']
+signal_count = [correct_count, incorrect_count]
+
+# Create the bar chart
+plt.figure(figsize=(8, 6))
+plt.bar(categories, signal_count, color=['green', 'red'])
+plt.xlabel('Prediction Categories')
+plt.ylabel('Signal Count')
+plt.title('Predicted vs. Classified: Correct vs. Incorrect Predictions')
+plt.xticks(ticks=np.arange(len(categories)), labels=categories)
+plt.show()
+
+
+# Convert the classification report to a DataFrame
+report_df = pd.DataFrame(model).transpose()
+
+# Filter out the accuracy, macro avg, and weighted avg rows
+class_metrics = report_df.drop(['accuracy', 'macro avg', 'weighted avg'], errors='ignore')
+
+# Plot the heatmap
+plt.figure(figsize=(10, 6))
+sns.heatmap(class_metrics.iloc[:, :-1], annot=True, cmap="Blues", cbar=False)  # Exclude support column
+plt.title("Classification Report Heatmap")
+plt.xlabel("Metrics")
+plt.ylabel("Classes")
+plt.show()
