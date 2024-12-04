@@ -41,22 +41,24 @@ def classify_sleep_stage(band_powers):
     theta_power = np.mean(band_powers['Theta'])
     alpha_power = np.mean(band_powers['Alpha'])
     beta_power = np.mean(band_powers['Beta'])
+    gamma_power = np.mean(band_powers['Gamma'])
 
     # Debug: Print band power values to verify their magnitude
-    print(f"Delta Power: {delta_power}, Theta Power: {theta_power}, Alpha Power: {alpha_power}, Beta Power: {beta_power}")
+    print(f"Delta Power: {delta_power}, Theta Power: {theta_power}, Alpha Power: {alpha_power}, Beta Power: {beta_power}, Gamma Power: {gamma_power}")
 
-    # Adjust thresholds based on observed values
-    # Experimenting with thresholds, based on magnitude of band powers.
-    if beta_power > 1E-8 and theta_power < 1E-8:  # Wake (High beta, low theta)
+    # Classification logic based on observed thresholds
+    if beta_power > max(delta_power, theta_power, alpha_power, gamma_power):  # Wake 
         return "Wake"
-    elif delta_power > 1E-8 and theta_power < 1E-8:  # Deep Sleep (High delta, low theta)
+    elif delta_power > max(theta_power, alpha_power, beta_power, gamma_power):  # Deep Sleep 
         return "Stage 3/4 (Deep Sleep)"
-    elif theta_power > 1E-8 and delta_power < 1E-8:  # Stage 1/2 (Moderate theta, low delta)
-        if alpha_power > 1E-8:
+    elif theta_power > max(delta_power, alpha_power, beta_power, gamma_power):  # Stage 1/2 
+        if alpha_power > max(delta_power, beta_power, gamma_power):  # Theta & Alpha
             return "Stage 2 (Light Sleep)"
         else:
             return "Stage 1 (Light Sleep)"
-    elif theta_power > 1E-8 and beta_power < 1E-8:  # REM Sleep (Moderate theta, low beta)
+    elif alpha_power > max(delta_power, beta_power, gamma_power, theta_power):  # Alpha > others
+        return "Stage 1 (Light Sleep)"
+    elif theta_power > 1E-8:  # REM Sleep 
         return "REM Sleep"
     else:
         return "Unknown"
