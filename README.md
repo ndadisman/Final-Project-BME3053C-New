@@ -53,10 +53,10 @@ The following Python libraries are required:
 ## Order of Scripts
 To execute the project in the correct order, use the following sequence:
 1. **`viewing_signal.py` (Optional):** Displays an image of the raw EEG signal.
-2. **`preprocess_data.py`:** Prepares the raw EEG data for analysis by cleaning and extracting PSD values.
-3. **`train_model.py`:** Trains the sleep stage classifier on the preprocessed data.
-4. **`evaluate_model.py`:** Evaluates the trained model and generates performance metrics.
-5. **`predict_sleep_stage.py`:** Uses the trained model to predict sleep stages on new EEG data.
+2. **`edf_reading.py`:** Prepares the raw EEG data for analysis by converting the image into data.
+3. **`feature_extraction.py`:** Prepares the raw EEG data for analysis by cleaning and extracting PSD values.
+4. **`combine_features.py`:** Combines the EEG data into one data frame.
+5. **`train_model.py`:** Trains the sleep stage classifier on the preprocessed data and predicts the sleep stage. 
 
 ## Installation
 To install the necessary dependencies, use pip:
