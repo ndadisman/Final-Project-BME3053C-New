@@ -12,7 +12,7 @@ This project focuses on classifying sleep stages using EEG signals. We aim to pr
 7. [Installation](#installation)
 
 ## Data Collection
-We use an open-source EEG dataset for this project, which contains labeled data for different sleep stages. The dataset includes EEG signals sampled at consistent intervals.
+We use an open-source EEG dataset for this project from St. Vincent's University Hospital / University College Dublin Sleep Apnea Database which can be found at https://physionet.org/content/ucddb/1.0.0/. This specific dataset which contains data of different patients with sleep apnea. The dataset includes EEG signals sampled at consistent intervals.
 
 ### Features Extracted:
 - **Delta** (0.5–4 Hz)
@@ -30,7 +30,7 @@ Raw EEG signals are preprocessed to extract the spectral power density (PSD) for
 ## Model Training
 A machine learning classifier is trained to predict sleep stages based on the PSD values. The workflow includes:
 - Splitting the dataset into training and testing sets
-- Training a classifier such as Support Vector Machines (SVM), Random Forests, or a Neural Network
+- Training a classifier using Random Forests
 - Saving the trained model for evaluation and deployment
 
 ## Evaluation
@@ -39,7 +39,6 @@ The trained model is evaluated on the testing set using metrics such as:
 - Precision
 - Recall
 - F1 Score  
-Confusion matrices are also generated to visualize performance across sleep stages.
 
 ## Requirements
 The following Python libraries are required:
