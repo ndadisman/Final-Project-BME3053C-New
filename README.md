@@ -50,7 +50,7 @@ The following Python libraries are required:
 - `scipy`
 
 ## Order of Scripts
-To execute the project in the correct order, use the following sequence:
+To execute the project in the correct order, use the following sequence found in the scripts folder:
 1. **`viewing_signal.py` (Optional):** Displays an image of the raw EEG signal.
 2. **`edf_reading.py`:** Prepares the raw EEG data for analysis by converting the image into data.
 3. **`feature_extraction.py`:** Prepares the raw EEG data for analysis by cleaning and extracting PSD values.
