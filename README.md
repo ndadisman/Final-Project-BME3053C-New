@@ -13,4 +13,4 @@ This project focuses on classifying sleep stages using EEG signals. We aim to pr
 ## Installation
 To install the necessary dependencies, use pip:
 ```bash
-pip install pandas scikit-learn joblib numpy matplotlib
+pip install pandas scikit-learn joblib numpy matplotlib scipy
