@@ -3,14 +3,17 @@
 This project focuses on classifying sleep stages using EEG signals. We aim to predict the stage of sleep based on spectral power density (PSD) values from different EEG frequency bands.
 
 ## Table of Contents
-1. [Data Collection](#data-collection)
-2. [Data Preprocessing](#data-preprocessing)
-3. [Model Training](#model-training)
-4. [Evaluation](#evaluation)
-5. [Requirements](#requirements)
-6. [Order of Scripts](#order-of-scripts)
-7. [Installation](#installation)
-8. [Spotlight Video](#spotlight-video)
+1. [Spotlight Video](#spotlight-video)
+2. [Data Collection](#data-collection)
+3. [Data Preprocessing](#data-preprocessing)
+4. [Model Training](#model-training)
+5. [Evaluation](#evaluation)
+6. [Requirements](#requirements)
+7. [Order of Scripts](#order-of-scripts)
+8. [Installation](#installation)
+
+## Spotlight Video
+https://youtu.be/m6-mUKHaA5k 
 
 ## Data Collection
 We use an open-source EEG dataset for this project from St. Vincent's University Hospital / University College Dublin Sleep Apnea Database which can be found at https://physionet.org/content/ucddb/1.0.0/. This specific dataset which contains data of different patients with sleep apnea. The dataset includes EEG signals sampled at consistent intervals.
@@ -62,6 +65,3 @@ To execute the project in the correct order, use the following sequence found in
 To install the necessary dependencies, use pip:
 ```bash
 pip install pandas scikit-learn joblib numpy matplotlib scipy
-
-## Spotlight Video
-https://youtu.be/m6-mUKHaA5k 
